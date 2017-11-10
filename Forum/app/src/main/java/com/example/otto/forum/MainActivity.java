@@ -52,10 +52,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.logInButton) {
-            loginUser(emailInputBox.getText().toString(),passwordInputBox.getText().toString());
+            loginUser(emailInputBox.getText().toString().trim(),passwordInputBox.getText().toString().trim());
         } else if (view.getId() == R.id.registerButton) {
-
+            registerUser();
         }
+    }
+
+    private void registerUser() {
+        auth.createUserWithEmailAndPassword(emailInputBox.getText().toString().trim(),passwordInputBox.getText().toString().trim()).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()){
+                    startActivity(new Intent(MainActivity.this, DashBoard.class));
+                    finish();
+                } else {
+                    Snackbar snackbar = Snackbar.make(passwordInputBox,"Wrong credentials.",Snackbar.LENGTH_SHORT);
+                    snackbar.show();
+                }
+            }
+        });
     }
 
     private void loginUser(String email, String pass) {
@@ -72,4 +87,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
     }
+
 }
