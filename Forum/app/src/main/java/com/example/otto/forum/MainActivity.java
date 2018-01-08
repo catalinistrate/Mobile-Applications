@@ -14,6 +14,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import static com.example.otto.forum.R.layout.activity_login;
 
@@ -28,9 +29,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(activity_login);
-
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         //view
-
         loginButton = (Button)findViewById(R.id.logInButton);
         registerButton = (Button)findViewById(R.id.registerButton);
         emailInputBox = (EditText)findViewById(R.id.emailInputBox);
